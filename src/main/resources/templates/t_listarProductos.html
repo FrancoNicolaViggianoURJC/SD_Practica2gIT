@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org/%22%3E
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E</script>
+        <script type="text/javascript" src="/js/script.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="/css/t_spa.css" >
+        <title>SPA</title>
+    </head>
+    <body>
+        <div id="titulo" class="container col-11">
+            <u><h1>Lista de categorias:</h1></u>
+        </div>
+        <div id="contenedorPrincipal" class="container col-11">
+            <ul>
+                <li    th:each="Producto : ${Productos}" th:id="${producto.id}">
+                    <span class="fs-1" th:text="${producto.nombre}"></span>
+                    <!-- <button class="btn btn-primary btn-sm" th:onClick="'mostrarEspecies('+${categoria.id}+')'">Mostrar Producto</button> !-->
+                </li>
+            </ul>
+            <!-- 
+            -->
+        </div>
+
+    </body>
+</html>

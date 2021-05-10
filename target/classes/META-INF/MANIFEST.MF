@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: Wolfi
+Build-Jdk: 15.0.2
+Implementation-Title: SD_Practica2
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: URJC_2FA
+Implementation-URL: http://www.example.com
+Created-By: Maven Integration for Eclipse
+
