@@ -1,6 +1,6 @@
 package app.entity;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,33 +8,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
 @Entity
 public class Categoria {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
+	public Long categoria_id;
 	
 	
 	private String nombre;
 	
-	@ManyToMany(mappedBy="categorias")
+	@ManyToMany	//(mappedBy="categorias")
+	@JoinTable(name="categorias_especies", joinColumns=@JoinColumn(name="especie_id"), inverseJoinColumns=@JoinColumn(name="categoria_id"))
 	private List<Especie> listaEspecies;
+
+	public Categoria() {}
 	
-
-	private Collection<Especie> especies;
-
-	public Categoria(String nombre, List<Especie> listaEspecies, Collection<Especie> especies) {
+	public Categoria(String nombre) {
 		this.nombre = nombre;
+		this.listaEspecies = new ArrayList<Especie>();
 	}
 
 	public Long getId() {
-		return id;
+		return categoria_id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.categoria_id = id;
 	}
 
 	public String getNombre() {
@@ -52,16 +55,5 @@ public class Categoria {
 	public void setListaEspecies(List<Especie> listaEspecies) {
 		this.listaEspecies = listaEspecies;
 	}
-
-	public Collection<Especie> getEspecies() {
-		return especies;
-	}
-
-	public void setEspecies(Collection<Especie> especies) {
-		this.especies = especies;
-	}
-	
-	
-	
 	
 }

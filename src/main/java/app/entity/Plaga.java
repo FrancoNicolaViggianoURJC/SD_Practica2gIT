@@ -1,46 +1,49 @@
 package app.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 @Entity
 public class Plaga {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
+	public Long plaga_id;
 	
 	private String nombreVulgar;
 	private String nombreCientifico;
 	private String url;
 	
 	@ManyToMany
-	private Collection<Especie> especies;
+	private List<Especie> especies;
 	
-	@ManyToMany(mappedBy="plagas")
+	@ManyToMany	//(fetch=FetchType.EAGER)	//(mappedBy="plagas")
+	@JoinTable(name="plagas_sustancias", joinColumns=@JoinColumn(name="sustancia_id"), inverseJoinColumns=@JoinColumn(name="plaga_id"))
 	private List<SustActiva> sustanciasActivas;
 
+	public Plaga() {}
 	
-	public Plaga(Long id, String nombreVulgar, String nombreCientifico, String url, Collection<Especie> especies,
-			List<SustActiva> sustanciasActivas) {
-		this.id = id;
+	public Plaga(String nombreVulgar, String nombreCientifico, String url) {
 		this.nombreVulgar = nombreVulgar;
 		this.nombreCientifico = nombreCientifico;
 		this.url = url;
-		this.especies = especies;
-		this.sustanciasActivas = sustanciasActivas;
+		this.sustanciasActivas = new ArrayList<SustActiva>();
 	}
 	
 	public Long getId() {
-		return id;
+		return plaga_id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.plaga_id = id;
 	}
 
 	public String getNombreVulgar() {
@@ -67,14 +70,15 @@ public class Plaga {
 		this.url = url;
 	}
 
+	
 	public Collection<Especie> getEspecies() {
 		return especies;
 	}
 
-	public void setEspecies(Collection<Especie> especies) {
+	public void setEspecies(List<Especie> especies) {
 		this.especies = especies;
 	}
-
+	
 	public List<SustActiva> getSustanciasActivas() {
 		return sustanciasActivas;
 	}

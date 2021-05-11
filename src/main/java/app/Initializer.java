@@ -25,18 +25,14 @@ public class Initializer {
 	@Autowired
 	SustActivaRepository repoSustancias;
 	
-	
-	
-	
-	//Categoria(Long id, String nombre, List<Especie> listaEspecies, Collection<Especie> especies) 
-	/*
-	@PostConstruct
-	public void crearCategorias(){
-		
-		repoCategoria.save(new Categoria())
+	@PostConstruct public void crear(){
+		crearProductos();
+		crearSustanciaActivas();
+		crearPlagas();
+		crearEspecies();
+		crearCategoria();
 	}
-	*/
-	@PostConstruct
+	
 	public void crearProductos(){
 		repoProducto.save(new ProductoFitosanitario("MICROTHIOL SPECIAL DISPERSS", "http://www.prodfitosanitario/pdf/001.pdf"));
 		repoProducto.save(new ProductoFitosanitario("COBRE NORDOX 50", "http://www.prodfitosanitario/pdf/002.pdf"));
@@ -71,7 +67,7 @@ public class Initializer {
 		
 	}
 	
-	@PostConstruct
+	
 	public void crearSustanciaActivas(){
 		
 		repoSustancias.save(new SustActiva("Digluconato de clohexidina"));
@@ -97,6 +93,7 @@ public class Initializer {
 		repoSustancias.save(new SustActiva("Ammonium Benzoate"));
 		
 		List<ProductoFitosanitario> listaProductos = repoProducto.findAll();
+		
 		repoSustancias.findByNombre("Digluconato de clohexidina").getListaProdFit().add(listaProductos.get(2));
 		repoSustancias.findByNombre("Digluconato de clohexidina").getListaProdFit().add(listaProductos.get(4));
 		repoSustancias.findByNombre("Digluconato de clohexidina").getListaProdFit().add(listaProductos.get(6));
@@ -110,13 +107,115 @@ public class Initializer {
 		repoSustancias.findByNombre("Acido acetilpancetilico").getListaProdFit().add(listaProductos.get(7));
 		repoSustancias.findByNombre("Acido acetilpancetilico").getListaProdFit().add(listaProductos.get(9));
 		repoSustancias.findByNombre("Acido acetilpancetilico").getListaProdFit().add(listaProductos.get(11));
-
+		 
 		repoSustancias.save(repoSustancias.findByNombre("Digluconato de clohexidina"));
 		repoSustancias.save(repoSustancias.findByNombre("Acido acetilpancetilico"));
 	}
 	
-	@PostConstruct
 	public void crearPlagas(){
-
+		repoPlaga.save(new Plaga("Armillaria root rot", "Armillaria luteobubalina", "http://www.plagas/pdf/001.pdf"));
+		repoPlaga.save(new Plaga("Bacterial blight", "Pseudomonas syringae", "http://www.plagas/pdf/002.pdf"));
+		repoPlaga.save(new Plaga("Sudden wilt", "Pythium", "http://www.plagas/pdf/003.pdf"));
+		repoPlaga.save(new Plaga("Stem end rot", "Dothiorella dominicana", "http://www.plagas/pdf/004.pdf"));
+		repoPlaga.save(new Plaga("Sclerotium disease", "Sclerotium rolfsii", "http://www.plagas/pdf/005.pdf"));
+		repoPlaga.save(new Plaga("Powdery mildew", "Podosphaera aphanis", "http://www.plagas/pdf/006.pdf"));
+		repoPlaga.save(new Plaga("Rhizoctonia", "Rhizoctonia solani", "http://www.plagas/pdf/007.pdf"));
+		repoPlaga.save(new Plaga("Phytophthora root rot", "Phytophthora cinnamomi", "http://www.plagas/pdf/008.pdf"));
+		repoPlaga.save(new Plaga("Lethal yellows", "Phytoplasm australiense", "http://www.plagas/pdf/009.pdf"));
+		repoPlaga.save(new Plaga("Gummy stem blight", "Stagonosporopsis cucurbitacearum", "http://www.plagas/pdf/010.pdf"));
+		repoPlaga.save(new Plaga("Fusarium rot", "Fusarium", "http://www.plagas/pdf/011.pdf"));
+		repoPlaga.save(new Plaga("Downy mildew", "Plasmopara viticola", "http://www.plagas/pdf/012.pdf"));
+		repoPlaga.save(new Plaga("Damping off", "Pythium", "http://www.plagas/pdf/013.pdf"));
+		repoPlaga.save(new Plaga("Charcoal rot", "Macrophomina phaseolina", "http://www.plagas/pdf/014.pdf"));
+		repoPlaga.save(new Plaga("Bacterial spot", "Xanthomonas campestris", "http://www.plagas/pdf/015.pdf"));
+		repoPlaga.save(new Plaga("Anthracnose", "Colletotrichum", "http://www.plagas/pdf/016.pdf"));
 	}
+	
+	public void crearEspecies(){
+		//8 especies
+		
+		repoEspecie.save(new Especie("Almendras","Prunus dulcis"));		//Rosidae
+		repoEspecie.save(new Especie("Manzanas","Malus domestica"));	//Magnoliopsida
+		repoEspecie.save(new Especie("Durazno","Prunus persica"));		//Magnoliopsida
+		repoEspecie.save(new Especie("Arándano azul","(Vaccinium corymbosum"));		//Ericales
+		repoEspecie.save(new Especie("Arándano rojo","Vaccinium erythrocarpum"));	//Ericales
+		repoEspecie.save(new Especie("Maíz","Zea mays"));	//graminea
+		repoEspecie.save(new Especie("Trigo","Triticum"));	//graminea
+		repoEspecie.save(new Especie("Sorgo","Sorghum"));	//graminea
+		
+	}
+	/* Crear una funcion a la que llamaremos despues de crear todo
+		//16 plagas, repartidas entre 8 especies.Almenos una plaga debera afectar a 3 especies diferentes, y 2 plagas a almenos 2 diferentes
+		List<Plaga> listaPlagas = repoPlaga.findAll();
+		
+		repoEspecie.findByNombreVulgar("Almendras").getListaPlagas().add(listaPlagas.get(0));
+		repoEspecie.findByNombreVulgar("Almendras").getListaPlagas().add(listaPlagas.get(8));
+		
+		repoEspecie.findByNombreVulgar("Manzanas").getListaPlagas().add(listaPlagas.get(1));
+		repoEspecie.findByNombreVulgar("Manzanas").getListaPlagas().add(listaPlagas.get(9));
+		
+		repoEspecie.findByNombreVulgar("Durazno").getListaPlagas().add(listaPlagas.get(2));
+		repoEspecie.findByNombreVulgar("Durazno").getListaPlagas().add(listaPlagas.get(10));
+		
+		repoEspecie.findByNombreVulgar("Arándano azul").getListaPlagas().add(listaPlagas.get(3));
+		repoEspecie.findByNombreVulgar("Arándano azul").getListaPlagas().add(listaPlagas.get(11));
+		
+		repoEspecie.findByNombreVulgar("Arándanzo rojo").getListaPlagas().add(listaPlagas.get(4));
+		repoEspecie.findByNombreVulgar("Arándanzo rojo").getListaPlagas().add(listaPlagas.get(12));
+		
+		repoEspecie.findByNombreVulgar("Maíz").getListaPlagas().add(listaPlagas.get(5));
+		repoEspecie.findByNombreVulgar("Maíz").getListaPlagas().add(listaPlagas.get(13));
+		
+		repoEspecie.findByNombreVulgar("Trigo").getListaPlagas().add(listaPlagas.get(6));
+		repoEspecie.findByNombreVulgar("Trigo").getListaPlagas().add(listaPlagas.get(14));
+		
+		repoEspecie.findByNombreVulgar("Sorgo").getListaPlagas().add(listaPlagas.get(7));
+		repoEspecie.findByNombreVulgar("Sorgo").getListaPlagas().add(listaPlagas.get(15));
+		
+		//Plaga Phytophthora afecta a 3
+		repoEspecie.findByNombreVulgar("Sorgo").getListaPlagas().add(listaPlagas.get(6));	//La otra es Trigo
+		repoEspecie.findByNombreVulgar("Maíz").getListaPlagas().add(listaPlagas.get(6));	//La otra es Trigo
+		
+		//2 Plagas afectan a almenos 2 especies diferentes
+		repoEspecie.findByNombreVulgar("Arándanzo rojo").getListaPlagas().add(listaPlagas.get(3));	//La otra es arandano azul
+		repoEspecie.findByNombreVulgar("Durazno").getListaPlagas().add(listaPlagas.get(9));	//La otra es Manzanas
+		
+		repoEspecie.save(repoEspecie.findByNombreVulgar("Almendras"));
+		repoEspecie.save(repoEspecie.findByNombreVulgar("Manzanas"));
+		repoEspecie.save(repoEspecie.findByNombreVulgar("Durazno"));
+		repoEspecie.save(repoEspecie.findByNombreVulgar("Arándano azul"));
+		repoEspecie.save(repoEspecie.findByNombreVulgar("Arándanzo rojo"));
+		repoEspecie.save(repoEspecie.findByNombreVulgar("Maíz"));
+		repoEspecie.save(repoEspecie.findByNombreVulgar("Trigo"));
+		repoEspecie.save(repoEspecie.findByNombreVulgar("Sorgo"));
+	}
+	*/
+	public void crearCategoria() {
+		//4 categorias
+		repoCategoria.save(new Categoria("Magnoliopsida"));
+		repoCategoria.save(new Categoria("Ericales"));
+		repoCategoria.save(new Categoria("Graminea"));
+		repoCategoria.save(new Categoria("Rosidae"));
+		
+	}
+	/* Idem que la funcion anterior
+		//Especies repartidas entre 4 categorias, almenos una de ellas debera pertenecer a dos o mas categorias
+		List<Especie> listaEspecies = repoEspecie.findAll();
+		
+		repoCategoria.findByNombre("Rosidae").getListaEspecies().add(listaEspecies.get(0));
+		
+		repoCategoria.findByNombre("Magnoliopsida").getListaEspecies().add(listaEspecies.get(1));
+		repoCategoria.findByNombre("Magnoliopsida").getListaEspecies().add(listaEspecies.get(2));
+		
+		repoCategoria.findByNombre("Ericales").getListaEspecies().add(listaEspecies.get(3));
+		repoCategoria.findByNombre("Ericales").getListaEspecies().add(listaEspecies.get(4));
+		
+		repoCategoria.findByNombre("Graminea").getListaEspecies().add(listaEspecies.get(5));
+		repoCategoria.findByNombre("Graminea").getListaEspecies().add(listaEspecies.get(6));
+		repoCategoria.findByNombre("Graminea").getListaEspecies().add(listaEspecies.get(7));
+		
+		
+	}
+	*/
+	
 }

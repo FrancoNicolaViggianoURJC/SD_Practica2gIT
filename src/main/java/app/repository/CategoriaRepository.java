@@ -8,5 +8,5 @@ import app.entity.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 
-	public List<Categoria> findByCategoria(String categoria);
+	public Categoria findByNombre(String nombre);
 }

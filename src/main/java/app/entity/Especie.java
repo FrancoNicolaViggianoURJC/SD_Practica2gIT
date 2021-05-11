@@ -1,45 +1,51 @@
 package app.entity;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.transaction.Transactional;
+
 
 @Entity
 public class Especie {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
+	public Long especie_id;
 	
 	private String nombreVulgar;
 	private String nombreCientifico;
 	
-	@ManyToMany(mappedBy="especies")
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)	//(mappedBy="especies")
+	@JoinTable(name="especies_plagas", joinColumns=@JoinColumn(name="plaga_id"), inverseJoinColumns=@JoinColumn(name="especie_id"))
 	private List<Plaga> listaPlagas;
 	
-	@ManyToMany
-	private Collection<Categoria> categorias;
+	@ManyToMany 
+	private List<Categoria> categorias;
 	
-	public Especie(Long id, String nombreVulgar, String nombreCientifico, List<Plaga> listaPlagas,
-			Collection<Categoria> categorias) {
-		this.id = id;
+	public Especie() {}
+	
+	public Especie(String nombreVulgar, String nombreCientifico) {
 		this.nombreVulgar = nombreVulgar;
 		this.nombreCientifico = nombreCientifico;
-		this.listaPlagas = listaPlagas;
-		this.categorias = categorias;
+		this.listaPlagas = new ArrayList<Plaga>();
 	}
 
 	public Long getId() {
-		return id;
+		return especie_id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.especie_id = id;
 	}
 
 	public String getNombreVulgar() {
@@ -66,11 +72,12 @@ public class Especie {
 		this.listaPlagas = listaPlagas;
 	}
 
-	public Collection<Categoria> getCategorias() {
+
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(Collection<Categoria> categorias) {
+	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
 	
