@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Plaga {
 	@ManyToMany
 	private List<Especie> especies;
 	
-	@ManyToMany	//(fetch=FetchType.EAGER)	//(mappedBy="plagas")
+	@ManyToMany(cascade=CascadeType.ALL)	//(fetch=FetchType.EAGER)	//(mappedBy="plagas")
 	@JoinTable(name="plagas_sustancias", joinColumns=@JoinColumn(name="sustancia_id"), inverseJoinColumns=@JoinColumn(name="plaga_id"))
 	private List<SustActiva> sustanciasActivas;
 

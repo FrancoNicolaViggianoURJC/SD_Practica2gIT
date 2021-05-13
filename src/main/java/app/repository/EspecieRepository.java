@@ -8,5 +8,5 @@ import app.entity.Especie;
 
 public interface EspecieRepository extends JpaRepository<Especie, Long> {
 
-	public Especie findByNombreVulgar(String nombre);
+	public Especie findByNombreVulgar(String nombreVulgar);
 }

@@ -16,7 +16,7 @@ public class Categoria {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	public Long categoria_id;
+	public Long id;
 	
 	
 	private String nombre;
@@ -33,11 +33,11 @@ public class Categoria {
 	}
 
 	public Long getId() {
-		return categoria_id;
+		return id;
 	}
 
 	public void setId(Long id) {
-		this.categoria_id = id;
+		this.id = id;
 	}
 
 	public String getNombre() {

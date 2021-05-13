@@ -26,7 +26,7 @@ public class Especie {
 	private String nombreCientifico;
 	
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)	//(mappedBy="especies")
-	@JoinTable(name="especies_plagas", joinColumns=@JoinColumn(name="plaga_id"), inverseJoinColumns=@JoinColumn(name="especie_id"))
+	//@JoinTable(name="especies_plagas", joinColumns=@JoinColumn(name="plaga_id"), inverseJoinColumns=@JoinColumn(name="especie_id"))
 	private List<Plaga> listaPlagas;
 	
 	@ManyToMany 

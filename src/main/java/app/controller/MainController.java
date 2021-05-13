@@ -29,7 +29,7 @@ public class MainController {
 	@GetMapping("/")
 	public String main(Model model) {
 		//REVISAR LOS ATRIBUTOS ID DE CADA CLASE, ESTAN EN PUBLIC!
-		model.addAttribute("Categorias", repoCategoria.findAll());
+		model.addAttribute("Categoria", repoCategoria.findAll());
 		return "t_listarProductos";
 	}
 

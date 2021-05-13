@@ -2,24 +2,33 @@
     <head>
         <meta charset="UTF-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/script.js"></script>
+        <script type="text/javascript" src="/javascript.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
         <title>SPA</title>
     </head>
     <body>
+    
+    	<div id="listaCategorias">
+    		<h2>
+    			Categorias
+    		</h2>
+    		<ul id="ulCat">
+    		</ul>
+    	</div>
+    	
+    <!--
         <div id="titulo" class="container col-11">
-            <u><h1>Lista de productos:</h1></u>
+            <u><h1>Lista de categorias:</h1></u>
         </div>
         <div id="contenedorPrincipal" class="container col-11">
             <ul>
-                <li    th:each="categoria : ${Categorias}" th:id="${categoria.categoria_id}">
+                <li th:each="categoria : ${Categoria}" th:id="${categoria.id}">
                     <span class="fs-1" th:text="${categoria.nombre}"></span>
-                    <!-- <button class="btn btn-primary btn-sm" th:onClick="'mostrarEspecies('+${categoria.id}+')'">Mostrar Producto</button> !-->
+                    <button class="btn btn-primary btn-sm" th:onClick="'especiesHijas('+${categoria.id}+')'">Mostrar Especies</button>
                 </li>
             </ul>
-            <!-- 
-            -->
         </div>
-
+	-->
+	
     </body>
 </html>

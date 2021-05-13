@@ -24,7 +24,7 @@ public class EspecieController {
 		return repoEspecie.findAll();
 	}
 
-	@RequestMapping(value = "/getEspecies/{id}/Plaga",method = RequestMethod.GET)
+	@RequestMapping(value = "/getEspecies/{id}/listaPlagas",method = RequestMethod.GET)
 	public List<Plaga> getPlagas(@PathVariable("id") Long id) {
 		Especie especie = repoEspecie.findById(id).get();
 		return especie.getListaPlagas();

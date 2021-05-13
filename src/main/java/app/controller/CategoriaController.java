@@ -23,11 +23,15 @@ public class CategoriaController {
 		return repoCategoria.findAll();
 	}
 
-	@RequestMapping(value = "/getCategoria/{id}/Especie",method = RequestMethod.GET)
+	@RequestMapping(value = "/getCategoria/{id}/listaEspecies",method = RequestMethod.GET)
 	public List<Especie> getEspecies(@PathVariable("id") Long id) {
 		Categoria categoria = repoCategoria.findById(id).get();
 		return categoria.getListaEspecies();
 	}
 	
-	
+	@RequestMapping(value = "/getCategoria/{id}/categoria",method = RequestMethod.GET)
+	public Categoria getCategoria(@PathVariable("id") Long id) {
+		Categoria categoria = repoCategoria.findById(id).get();
+		return categoria;
+	}
 }

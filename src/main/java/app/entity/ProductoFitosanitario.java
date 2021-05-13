@@ -13,7 +13,7 @@ public class ProductoFitosanitario {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	public Long sustancia_id;
+	public Long producto_id;
 	
 	private String nombre;
 	private String url;
