@@ -27,7 +27,6 @@ public class SustActivaController {
 	@RequestMapping(value = "/getSustActivas/{id}/ProductoFitosanitario",method = RequestMethod.GET)
 	public List<ProductoFitosanitario> getSustActivas(@PathVariable("id") Long id) {
 		SustActiva sustActiva = repoSustActiva.findById(id).get();
-		System.out.println(sustActiva.getListaProdFit().size());
 		return sustActiva.getListaProdFit();
 	}
 }
